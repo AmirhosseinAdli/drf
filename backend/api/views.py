@@ -1,6 +1,8 @@
 # from django.shortcuts import render
-from rest_framework.generics import ListAPIView, ListCreateAPIView
-from .serilizers import ArticleSerializer
+from django.contrib.auth.models import User
+from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveAPIView, RetrieveDestroyAPIView, \
+    RetrieveUpdateDestroyAPIView
+from .serilizers import ArticleSerializer, UserSerializer
 
 # Create your views here.
 from blog.models import Article
@@ -10,3 +12,18 @@ from blog.models import Article
 class ArticleList(ListCreateAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+
+
+class ArticleDetail(RetrieveUpdateDestroyAPIView):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+
+
+class UserList(ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserDetail(RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
