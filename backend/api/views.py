@@ -4,7 +4,7 @@ from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveAPIV
     RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAdminUser
 
-from .permissions import IsSuperUser, IsStaffOrReadOnly, IsAuthorOrReadOnly
+from .permissions import IsSuperUser, IsStaffOrReadOnly, IsAuthorOrReadOnly, IsSuperUserOrStaffReadOnly
 from .serilizers import ArticleSerializer, UserSerializer
 
 # Create your views here.
@@ -33,10 +33,10 @@ class ArticleDetailBySlugView(RetrieveUpdateDestroyAPIView):
 class UserList(ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes: tuple = (IsSuperUser,)
+    permission_classes: tuple = (IsSuperUserOrStaffReadOnly,)
 
 
 class UserDetail(RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes: tuple = (IsSuperUser,)
+    permission_classes: tuple = (IsSuperUserOrStaffReadOnly,)
