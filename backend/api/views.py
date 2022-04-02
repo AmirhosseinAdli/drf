@@ -2,6 +2,7 @@
 from django.contrib.auth.models import User
 from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveAPIView, RetrieveDestroyAPIView, \
     RetrieveUpdateDestroyAPIView
+from rest_framework.permissions import IsAdminUser
 from .serilizers import ArticleSerializer, UserSerializer
 
 # Create your views here.
@@ -28,8 +29,10 @@ class ArticleDetailBySlugView(RetrieveUpdateDestroyAPIView):
 class UserList(ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes: tuple = (IsAdminUser,)
 
 
 class UserDetail(RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes: tuple = (IsAdminUser,)
