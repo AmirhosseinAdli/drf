@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django_filters',
 
     'rest_framework',
     'rest_framework.authtoken',
@@ -143,7 +144,8 @@ REST_FRAMEWORK: dict = {
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
         # knox
         # oauth
-    ]
+    ],
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
 
 SITE_ID = 1
