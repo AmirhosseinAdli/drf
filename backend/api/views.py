@@ -2,7 +2,8 @@
 # from rest_framework.request import Request
 # from rest_framework.views import APIView
 # from rest_framework.response import Response
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveAPIView, RetrieveDestroyAPIView, \
     RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
@@ -49,7 +50,6 @@ class ArticleViewSet(ModelViewSet):
             return ArticleDetailBySlugView
 
 
-
 # class UserList(ListCreateAPIView):
 #     queryset = User.objects.all()
 #     serializer_class = UserSerializer
@@ -62,7 +62,8 @@ class ArticleViewSet(ModelViewSet):
 #     permission_classes: tuple = (IsSuperUserOrStaffReadOnly,)
 
 class UserViewSet(ModelViewSet):
-    queryset = User.objects.all()
+    # queryset = User.objects.all()
+    queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
     permission_classes: tuple = (IsSuperUserOrStaffReadOnly,)
 
