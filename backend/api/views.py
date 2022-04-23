@@ -37,7 +37,14 @@ from blog.models import Article
 class ArticleViewSet(ModelViewSet):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
-    filterset_fields = ['status', 'author__username']
+    filterset_fields: list[str] = ['status', 'author']
+    search_fields: list[str] = [
+        "title",
+        "content",
+        "author__username",
+        "author__first_name",
+        "author__last_name",
+    ]
 
     # def get_queryset(self):
     #     queryset = Article.objects.all()
