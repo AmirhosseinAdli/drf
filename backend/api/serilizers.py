@@ -12,6 +12,12 @@ class ArticleSerializer(serializers.ModelSerializer):
         exclude: tuple[str] = ("creation_datetime", "last_update_datetime")
         # fields: str = "__all__"
 
+    def validate_title(self, value):
+        filter_list: list[str] = ["javascript", "laravel", "PHP"]
+        for i in filter_list:
+            if i in value:
+                raise serializers.ValidationError("Don't use bad words! : {}".format(i))
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
