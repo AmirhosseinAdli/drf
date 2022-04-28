@@ -10,7 +10,7 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from .permissions import IsSuperUser, IsStaffOrReadOnly, IsAuthorOrReadOnly, IsSuperUserOrStaffReadOnly
-from .serilizers import ArticleSerializer, UserSerializer, AuthorSerializer
+from .serilizers import ArticleSerializer, UserSerializer
 
 # Create your views here.
 from blog.models import Article
@@ -108,6 +108,6 @@ class UserViewSet(ModelViewSet):
 #         # return Response({"msg": "Token revoked!"}, status=201)
 #         return Response(status=204)
 
-class AuthorRetrieve(RetrieveAPIView):
-    queryset = get_user_model().objects.filter(is_staff=True)
-    serializer_class = AuthorSerializer
+# class AuthorRetrieve(RetrieveAPIView):
+#     queryset = get_user_model().objects.filter(is_staff=True)
+#     serializer_class = AuthorSerializer

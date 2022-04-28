@@ -5,15 +5,22 @@ from blog.models import Article
 from django.contrib.auth import get_user_model
 
 
-class AuthorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = get_user_model()
-        fields: list[str] = ["id", "username", "first_name", "last_name"]
+# class AuthorSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = get_user_model()
+#         fields: list[str] = ["id", "username", "first_name", "last_name"]
+
+
+class AuthorUsernameField(serializers.RelatedField):
+    def to_representation(self, value):
+        # return value.first_name + ' ' + value.last_name
+        return value.username
 
 
 class ArticleSerializer(serializers.ModelSerializer):
     # author = AuthorSerializer()
-    author = serializers.HyperlinkedIdentityField(view_name='api:authors-detail')
+    # author = serializers.HyperlinkedIdentityField(view_name='api:authors-detail')
+    author = AuthorUsernameField(read_only=True)
 
     class Meta:
         model = Article
