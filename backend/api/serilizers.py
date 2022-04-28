@@ -21,7 +21,16 @@ class ArticleSerializer(serializers.ModelSerializer):
     # author = AuthorSerializer()
     # author = serializers.HyperlinkedIdentityField(view_name='api:authors-detail')
     # author = AuthorUsernameField(read_only=True)
-    author = serializers.CharField(source="author.username", read_only=True)
+    # author = serializers.CharField(source="author.username", read_only=True)
+    def get_author(self, obj):
+        # return str(obj.author.id) + " " + obj.author.username
+        return {
+            "username": obj.author.username,
+            "first_name": obj.author.first_name,
+            "last_name": obj.author.last_name,
+        }
+
+    author = serializers.SerializerMethodField("get_author")
 
     class Meta:
         model = Article
